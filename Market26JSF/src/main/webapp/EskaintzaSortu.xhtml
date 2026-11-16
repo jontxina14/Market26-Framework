@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core" xmlns:p="jakarta.faces.passthrough">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="jakarta.faces.passthrough">
 <f:view>
 	<h:head>
 		<title>Sortu eskaintza</title>
@@ -8,7 +10,7 @@
 	<h:body>
 		<h1>Sortu eskaintza</h1>
 
-		<h:form id="sortuEsk">
+		<h:form id="sortuEsk" enctype="multipart/form-data">
 			<h:panelGrid columns="3">
 
 				<h:outputLabel for="izenburua" value="Izenburua:" />
