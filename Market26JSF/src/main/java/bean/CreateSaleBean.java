@@ -18,6 +18,8 @@ import jakarta.servlet.http.Part;
 @Named("createSaleBean")
 @RequestScoped
 public class CreateSaleBean {
+	
+	//proba
 
 	BLFacade facadeBL = FacadeBean.getBusinessLogic();
 
