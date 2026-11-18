@@ -1,25 +1,17 @@
 package bean;
 
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import gui.Utils;
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.servlet.http.Part;
 
 @Named("createSaleBean")
 @RequestScoped
 public class CreateSaleBean {
-	
-	//proba
 
 	BLFacade facadeBL = FacadeBean.getBusinessLogic();
 
@@ -28,36 +20,19 @@ public class CreateSaleBean {
 	private float prezioa;
 	private String egoera;
 	private Date data = new Date();
-	private Part argazkia;
 	private String mezua;
-	private List<String> egoerak;
+	private List<String> egoerak = Utils.getStatus();
 
-	// De momento fijo; luego lo sacas del bean de login (sesión)
-	private String sellerMail = "seller@gmail.com";
-
-	@PostConstruct
-	public void init() {
-		egoerak = Utils.getStatus();
-	}
+	private String sellerMail = "seller1@gmail.com";
 
 	public String sortu() {
 		try {
-			// Part -> File temporal (createSale espera un File)
-			File fitxategia = null;
-			if (argazkia != null && argazkia.getSize() > 0) {
-				fitxategia = File.createTempFile("argazkia_", "_" + argazkia.getSubmittedFileName());
-				try (InputStream in = argazkia.getInputStream()) {
-					Files.copy(in, fitxategia.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				}
-			}
-
 			int numStatus = egoerak.indexOf(egoera);
 
-			facadeBL.createSale(izenburua, deskribapena, numStatus, prezioa,
-					UtilDate.trim(data), sellerMail, fitxategia);
+			facadeBL.createSale(izenburua, deskribapena, numStatus, prezioa, UtilDate.trim(data), sellerMail, null);
 
-			mezua = "Produktua ondo sortu da";
-			return null; // se queda en la misma página
+			mezua = "Produktua ondo sortu da. ";
+			return null;
 		} catch (Exception e) {
 			mezua = e.getMessage();
 			return null;
@@ -78,9 +53,6 @@ public class CreateSaleBean {
 
 	public Date getData() { return data; }
 	public void setData(Date data) { this.data = data; }
-
-	public Part getArgazkia() { return argazkia; }
-	public void setArgazkia(Part argazkia) { this.argazkia = argazkia; }
 
 	public String getMezua() { return mezua; }
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="jakarta.faces.html"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
 	xmlns:f="jakarta.faces.core">
 <f:view>
 	<h:head>
@@ -17,8 +16,8 @@
 
 			<h:outputText value="#{querySalesBean.mezua}" style="color:red" />
 
-			<h:dataTable id="taula" value="#{querySalesBean.salmentak}" var="item"
-				border="1" rendered="#{not empty querySalesBean.salmentak}">
+			<h:dataTable id="taula" value="#{querySalesBean.salmentak}"
+				var="item" border="1">
 				<f:facet name="header">Produktuak</f:facet>
 
 				<h:column>
@@ -35,25 +34,7 @@
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</h:outputText>
 				</h:column>
-				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:commandButton value="Ikusi"
-						action="#{querySalesBean.aukeratu(item)}" />
-				</h:column>
 			</h:dataTable>
-
-			<h:panelGrid columns="2" rendered="#{querySalesBean.aukeratua != null}"
-				style="margin-top:15px">
-				<f:facet name="header">Aukeratutako produktua</f:facet>
-				<h:outputText value="Izenburua:" />
-				<h:outputText value="#{querySalesBean.aukeratua.title}" />
-				<h:outputText value="Prezioa:" />
-				<h:outputText value="#{querySalesBean.aukeratua.price}" />
-				<h:outputText value="Argitaratze data:" />
-				<h:outputText value="#{querySalesBean.aukeratua.publicationDate}">
-					<f:convertDateTime pattern="dd-MM-yyyy" />
-				</h:outputText>
-			</h:panelGrid>
 
 			<p>
 				<h:button value="Itxi" outcome="Hasiera" />

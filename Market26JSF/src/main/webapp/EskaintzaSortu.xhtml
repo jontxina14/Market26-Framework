@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core"
-	xmlns:p="jakarta.faces.passthrough">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="jakarta.faces.passthrough">
 <f:view>
 	<h:head>
 		<title>Sortu eskaintza</title>
@@ -10,25 +8,25 @@
 	<h:body>
 		<h1>Sortu eskaintza</h1>
 
-		<h:form id="sortuEsk" enctype="multipart/form-data">
+		<h:form id="sortuEsk">
 			<h:panelGrid columns="3">
 
 				<h:outputLabel for="izenburua" value="Izenburua:" />
 				<h:inputText id="izenburua" value="#{createSaleBean.izenburua}"
-					required="true" requiredMessage="Izenburua beharrezkoa da" />
+					required="true" requiredMessage="Izenburua beharrezkoa da." />
 				<h:message for="izenburua" style="color:red" />
 
 				<h:outputLabel for="deskribapena" value="Deskribapena:" />
 				<h:inputTextarea id="deskribapena" rows="4" cols="30"
 					value="#{createSaleBean.deskribapena}" required="true"
-					requiredMessage="Deskribapena beharrezkoa da" />
+					requiredMessage="Deskribapena beharrezkoa da." />
 				<h:message for="deskribapena" style="color:red" />
 
 				<h:outputLabel for="prezioa" value="Prezioa:" />
 				<h:inputText id="prezioa" value="#{createSaleBean.prezioa}"
-					required="true" requiredMessage="Prezioa beharrezkoa da"
-					converterMessage="Zenbaki bat sartu behar duzu"
-					validatorMessage="Prezioa 0 baino handiagoa izan behar da">
+					required="true" requiredMessage="Prezioa beharrezkoa da."
+					converterMessage="Zenbaki bat sartu behar duzu."
+					validatorMessage="Prezioa 0 baino handiagoa izan behar da.">
 					<f:validateDoubleRange minimum="0.01" />
 				</h:inputText>
 				<h:message for="prezioa" style="color:red" />
@@ -41,16 +39,11 @@
 
 				<h:outputLabel for="data" value="Argitaratze data:" />
 				<h:inputText id="data" value="#{createSaleBean.data}" p:type="date"
-					required="true" requiredMessage="Data beharrezkoa da"
-					converterMessage="Data baliogabea">
+					required="true" requiredMessage="Data beharrezkoa da."
+					converterMessage="Data baliogabea.">
 					<f:convertDateTime pattern="yyyy-MM-dd" />
 				</h:inputText>
 				<h:message for="data" style="color:red" />
-
-				<h:outputLabel for="argazkia" value="Argazkia:" />
-				<h:inputFile id="argazkia" value="#{createSaleBean.argazkia}"
-					p:accept="image/jpeg,image/gif,image/png" />
-				<h:message for="argazkia" style="color:red" />
 
 			</h:panelGrid>
 
