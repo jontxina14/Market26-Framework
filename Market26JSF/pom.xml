@@ -82,6 +82,7 @@ beharko dira.
 			<artifactId>jononekin_market-oct2</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<!-- Izena ezartzen ez bada WAR fitxategia

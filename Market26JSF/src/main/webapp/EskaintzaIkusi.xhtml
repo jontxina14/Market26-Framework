@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+<f:view>
+	<h:head>
+		<title>Eskaintza ikusi</title>
+	</h:head>
+	<h:body>
+		<h1>Eskaintzaren xehetasunak</h1>
+
+		<h:panelGrid columns="2" rendered="#{querySalesBean.aukeratua != null}">
+			<h:outputText value="Izenburua:" />
+			<h:outputText value="#{querySalesBean.aukeratua.title}" />
+
+			<h:outputText value="Deskribapena:" />
+			<h:outputText value="#{querySalesBean.aukeratua.description}" />
+
+			<h:outputText value="Prezioa:" />
+			<h:outputText value="#{querySalesBean.aukeratua.price}" />
+			
+			<h:outputText value="Egoera:" />
+			<h:outputText value="#{querySalesBean.egoeraTestua}" />
+
+			<h:outputText value="Argitaratze data:" />
+			<h:outputText value="#{querySalesBean.aukeratua.publicationDate}">
+				<f:convertDateTime pattern="yyyy/MM/dd" />
+			</h:outputText>
+		</h:panelGrid>
+
+		<h:outputText value="Ez da produkturik aukeratu."
+			rendered="#{querySalesBean.aukeratua == null}" style="color:red" />
+
+		<p>
+			<h:button value="Itxi" outcome="EskaintzaKontsultatu" />
+		</p>
+	</h:body>
+</f:view>
+</html>

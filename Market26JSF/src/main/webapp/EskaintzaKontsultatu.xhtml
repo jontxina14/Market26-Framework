@@ -34,6 +34,11 @@
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</h:outputText>
 				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton value="Ikusi"
+						action="#{querySalesBean.ikusi(item)}" />
+				</h:column>
 			</h:dataTable>
 
 			<p>

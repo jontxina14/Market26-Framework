@@ -1,0 +1,17 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-05-14 16:47:38 #1 tool] 
+java.lang.NoClassDefFoundError: javax/persistence/PersistenceException
+	at com.objectdb.o.OSH.<clinit>(OSH.java:105)
+	at com.objectdb.o.SMR.f(SMR.java:177)
+	at com.objectdb.o.TOL.run(TOL.java:117)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+Caused by: java.lang.ClassNotFoundException: javax.persistence.PersistenceException
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 6 more
+
