@@ -1,17 +1,25 @@
 package bean;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import gui.Utils;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
 
 @Named("createSaleBean")
-@RequestScoped
-public class CreateSaleBean {
+@SessionScoped
+public class CreateSaleBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	BLFacade facadeBL = FacadeBean.getBusinessLogic();
 
@@ -22,14 +30,24 @@ public class CreateSaleBean {
 	private Date data = new Date();
 	private String mezua;
 	private List<String> egoerak = Utils.getStatus();
+	private Part argazkia;
 
 	private String sellerMail = "seller1@gmail.com";
 
 	public String sortu() {
 		try {
+			
+			File img = null;
+			if (argazkia != null && argazkia.getSize() > 0) {
+				img = File.createTempFile("argazkia_", "_" + argazkia.getSubmittedFileName());
+				try (InputStream in = argazkia.getInputStream()) {
+					Files.copy(in, img.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				}
+			}
+			
 			int numStatus = egoerak.indexOf(egoera);
 
-			facadeBL.createSale(izenburua, deskribapena, numStatus, prezioa, UtilDate.trim(data), sellerMail, null);
+			facadeBL.createSale(izenburua, deskribapena, numStatus, prezioa, UtilDate.trim(data), sellerMail, img);
 
 			mezua = "Produktua ondo sortu da. ";
 			return null;
@@ -53,6 +71,9 @@ public class CreateSaleBean {
 
 	public Date getData() { return data; }
 	public void setData(Date data) { this.data = data; }
+	
+	public Part getArgazkia() { return argazkia; }
+	public void setArgazkia(Part argazkia) { this.argazkia = argazkia; }
 
 	public String getMezua() { return mezua; }
 

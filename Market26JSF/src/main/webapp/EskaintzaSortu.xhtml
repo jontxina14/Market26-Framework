@@ -8,7 +8,7 @@
 	<h:body>
 		<h1>Sortu eskaintza</h1>
 
-		<h:form id="sortuEsk">
+		<h:form id="sortuEsk" enctype="multipart/form-data">
 			<h:panelGrid columns="3">
 
 				<h:outputLabel for="izenburua" value="Izenburua:" />
@@ -44,6 +44,11 @@
 					<f:convertDateTime pattern="yyyy-MM-dd" />
 				</h:inputText>
 				<h:message for="data" style="color:red" />
+				
+				<h:outputLabel for="argazkia" value="Argazkia:" />
+				<h:inputFile id="argazkia" value="#{createSaleBean.argazkia}"
+					p:accept="image/jpeg,image/gif,image/png" />
+				<h:message for="argazkia" style="color:red" />
 
 			</h:panelGrid>
 

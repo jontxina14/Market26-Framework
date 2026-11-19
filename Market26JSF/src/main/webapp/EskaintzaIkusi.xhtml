@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="jakarta.faces.html"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
 	xmlns:f="jakarta.faces.core">
 <f:view>
 	<h:head>
@@ -9,7 +8,8 @@
 	<h:body>
 		<h1>Eskaintzaren xehetasunak</h1>
 
-		<h:panelGrid columns="2" rendered="#{querySalesBean.aukeratua != null}">
+		<h:panelGrid columns="2"
+			rendered="#{querySalesBean.aukeratua != null}">
 			<h:outputText value="Izenburua:" />
 			<h:outputText value="#{querySalesBean.aukeratua.title}" />
 
@@ -18,7 +18,7 @@
 
 			<h:outputText value="Prezioa:" />
 			<h:outputText value="#{querySalesBean.aukeratua.price}" />
-			
+
 			<h:outputText value="Egoera:" />
 			<h:outputText value="#{querySalesBean.egoeraTestua}" />
 
@@ -26,6 +26,15 @@
 			<h:outputText value="#{querySalesBean.aukeratua.publicationDate}">
 				<f:convertDateTime pattern="yyyy/MM/dd" />
 			</h:outputText>
+
+			<h:outputText value="Irudia:" />
+			<h:panelGroup>
+				<h:graphicImage value="#{querySalesBean.irudia}" width="200"
+					rendered="#{not empty querySalesBean.irudia}" />
+				<h:outputText value="Ez dago irudirik" style="color:gray"
+					rendered="#{empty querySalesBean.irudia}" />
+			</h:panelGroup>
+
 		</h:panelGrid>
 
 		<h:outputText value="Ez da produkturik aukeratu."

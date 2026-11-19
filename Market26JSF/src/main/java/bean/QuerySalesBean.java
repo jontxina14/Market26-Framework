@@ -1,14 +1,18 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import gui.Utils;
-
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import javax.imageio.ImageIO;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Sale;
+import gui.Utils;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
@@ -17,7 +21,7 @@ import jakarta.inject.Named;
 public class QuerySalesBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	BLFacade facadeBL = FacadeBean.getBusinessLogic();
 
 	private String bilaketa = "";
@@ -25,13 +29,14 @@ public class QuerySalesBean implements Serializable {
 	private Sale aukeratua;
 	private String mezua;
 	private List<String> egoerak = Utils.getStatus();
+	private String irudia;
 
 	public String bilatu() {
 		try {
 			Date today = UtilDate.trim(new Date());
 			salmentak = facadeBL.getPublishedSales(bilaketa, today);
 			mezua = "";
-			if(salmentak.isEmpty()) {
+			if (salmentak.isEmpty()) {
 				mezua = "Ez da produkturik aurkitu";
 			}
 		} catch (Exception e) {
@@ -40,20 +45,41 @@ public class QuerySalesBean implements Serializable {
 				mezua = e.getMessage();
 			} else {
 				mezua = e.toString();
-			}		}
+			}
+		}
 		return null;
 	}
 
 	public String ikusi(Sale s) {
 		this.aukeratua = s;
+		this.irudia = kargatuIrudia(s);
 		return "EskaintzaIkusi";
+	}
+
+	private String kargatuIrudia(Sale s) {
+		try {
+			String file = s.getFile();
+			if (file == null || file.isEmpty()) return null;
+
+			Image img = facadeBL.downloadImage(file);
+			if (img == null) return null;
+
+			BufferedImage bimg = (BufferedImage) img;
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(bimg, "png", baos);
+			return "data:image/png;base64," + Base64.getEncoder().encodeToString(baos.toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 
+	
 	public String getEgoeraTestua() {
 		if (aukeratua == null) return "";
-		int n = aukeratua.getStatus();
-		return (n >= 0 && n < egoerak.size()) ? egoerak.get(n) : String.valueOf(n);
+		return Utils.getStatus(aukeratua.getStatus());
 	}
 
 	public String getBilaketa() { return bilaketa; }
@@ -64,4 +90,7 @@ public class QuerySalesBean implements Serializable {
 	public Sale getAukeratua() { return aukeratua; }
 
 	public String getMezua() { return mezua; }
+
+	public String getIrudia() { return irudia; }
+	
 }
