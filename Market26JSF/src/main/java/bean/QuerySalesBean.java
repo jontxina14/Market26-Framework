@@ -28,7 +28,6 @@ public class QuerySalesBean implements Serializable {
 	private List<Sale> salmentak;
 	private Sale aukeratua;
 	private String mezua;
-	private List<String> egoerak = Utils.getStatus();
 	private String irudia;
 
 	public String bilatu() {
